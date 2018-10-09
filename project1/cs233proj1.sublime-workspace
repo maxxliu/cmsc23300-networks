@@ -1,0 +1,404 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get",
+				"get_msgstat"
+			],
+			[
+				"GET",
+				"GET_BLOCK"
+			],
+			[
+				"free",
+				"mm_free"
+			],
+			[
+				"coa",
+				"coalesce_L12"
+			],
+			[
+				"UPDATE",
+				"UPDATE_BLOCK"
+			],
+			[
+				"UPDAT",
+				"UPDATE_BLOCK"
+			],
+			[
+				"TEST",
+				"testing_p"
+			],
+			[
+				"test",
+				"testing_p"
+			],
+			[
+				"bp",
+				"bp_size"
+			],
+			[
+				"testing",
+				"testing_p"
+			],
+			[
+				"split",
+				"split_bp"
+			],
+			[
+				"spli",
+				"split_bp"
+			],
+			[
+				"up",
+				"UPDATE_BLOCK"
+			],
+			[
+				"new",
+				"new_size"
+			],
+			[
+				"over",
+				"OVERHEAD"
+			],
+			[
+				"CUR",
+				"cur_bp"
+			],
+			[
+				"cur",
+				"cur_bp"
+			],
+			[
+				"L12",
+				"L12MAX"
+			],
+			[
+				"mm_",
+				"mm_free"
+			],
+			[
+				"old",
+				"oldptr"
+			],
+			[
+				"UPD",
+				"UPDATE_BLOCK"
+			],
+			[
+				"GET_",
+				"GET_SIZE"
+			],
+			[
+				"tmp",
+				"tmp_file"
+			],
+			[
+				"error",
+				"errorMsg"
+			],
+			[
+				"adv",
+				"advancedRedirection"
+			],
+			[
+				"mv",
+				"mv_tmp"
+			],
+			[
+				"rm",
+				"rm_original"
+			],
+			[
+				"wait",
+				"waitpid"
+			],
+			[
+				"my",
+				"my_tmp"
+			],
+			[
+				"home",
+				"homedir"
+			],
+			[
+				"built",
+				"built_status"
+			],
+			[
+				"par",
+				"parse_status"
+			],
+			[
+				"exe",
+				"executeCommands"
+			],
+			[
+				"pid",
+				"pid_t"
+			],
+			[
+				"ma",
+				"mallocArray"
+			],
+			[
+				"parsa",
+				"parseCommand"
+			],
+			[
+				"parse",
+				"parse_status"
+			],
+			[
+				"trans",
+				"trans6464"
+			],
+			[
+				"tran",
+				"trans_3264block"
+			],
+			[
+				"trans32",
+				"trans3264"
+			],
+			[
+				"register",
+				"registerTransFunction"
+			],
+			[
+				"find",
+				"findTag"
+			],
+			[
+				"address",
+				"address_i"
+			],
+			[
+				"neg",
+				"neg_shift"
+			],
+			[
+				"au",
+				"auto_fail"
+			],
+			[
+				"check",
+				"check_signs"
+			],
+			[
+				"sam",
+				"same_sign"
+			],
+			[
+				"max",
+				"max_or_min"
+			],
+			[
+				"not",
+				"not_neg"
+			],
+			[
+				"mask",
+				"mask_msb"
+			],
+			[
+				"same",
+				"same_sign"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/maxliu/cmsc23300-networks/project1/snc.c",
+		"/home/maxliu/warm-up-project/src/person.cpp",
+		"/home/maxliu/warm-up-project/inc/person.h",
+		"/home/maxliu/warm-up-project/test/test_person.cpp",
+		"/home/maxliu/warm-up-project/test/test_community.cpp",
+		"/home/maxliu/warm-up-project/person.cpp",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p4shell/myshell.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/mm.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/mm-implicit.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/mm-naive.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/mm-orig.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/memlib.h",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/memlib.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/mdriver.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p5malloc/mdriverc",
+		"/home/maxliu/cs154/playground/mem_play.c",
+		"/home/maxliu/cs121-aut-16-maxliu/pa7/treemap.py",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/hw7/wami.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p3cache/trans.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p3cache/csim.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p3cache/cachelab.h",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p3cache/cachelab.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p2bomb/bomb52/strings.txt",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p2bomb/bomb52/objdump_d.txt",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p2bomb/bomb52/bomb.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p2bomb/bomb52/objdump_t.txt",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p2bomb/00-Readme.txt",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p2bomb/bomb52/README",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/lab2/ex1/test.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/lab2/ex1/main.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/lab2/ex1/library.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/lab2/.answers.txt",
+		"/home/maxliu/cs121-aut-16-maxliu/pa2/schelling.py",
+		"/home/maxliu/cs121-aut-16-maxliu/pa1/benford.py",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/p1bitmanip/bits.c",
+		"/home/maxliu/cs154/maxliu-cs154-aut-17/hw1/hw1.txt"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "cs233proj1.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

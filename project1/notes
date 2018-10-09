@@ -1,3 +1,6 @@
+for personal use only, can disregard
+
+
 Grading Policy
 --------------
 + must compile with a single make command on Ubuntu 18.04 with gcc 7.3
@@ -10,3 +13,25 @@ Grading Policy
 + + (Client) could not connect to designated server - 5%
 + Each client/server of TCP/UDP accounts for 10% - 40%
 + Different behaviour when Ctrl-D is pressed for TCP and UDP - 20%
+
+
+Networking Notes
+----------------
+Unix domain - 2 processes sharing a common file system to communicate
+Internet domain - 2 processes running on any 2 hosts on the internet
+
+Stream - continuous stream of data (TCP)
+Datagram - message as a block (UDP)
+
+
+How to use netcat (example)
+---------------------------
+netcat -l 4444
+netcat bellsprout.cs.uchicago.edu 4444
+
+Ctrl-D will close application on both sides
+
+
+Other
+-----
+maximum length of a message is 100
