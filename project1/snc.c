@@ -196,11 +196,21 @@ void runServer(int argc, char *argv[], int *flags)
         
         while (1) {
             bzero(buffer, 256);
-            n = read(newsockfd, buffer, 255);
+            // n = read(newsockfd, buffer, 255);
+            n = recv(newsockfd, buffer, 255, 0);
             if (n < 0) {
                 error("ERROR reading from socket\n");
             }
-            printf("%s\n", buffer);
+            if (n == 0) {
+                error("ERROR connection lost\n");
+            }
+            printf("%s", buffer);
+
+            // after receiving i send back a message saying i got it
+            // n = send(newsockfd, buffer, strlen(buffer), 0);
+            // if (n < 0) {
+            //     error("ERROR sending confirmation\n");
+            // }
         }
         // bzero(buffer, 256);
         // n = read(newsockfd, buffer, 255);
@@ -257,9 +267,17 @@ void runClient(int argc, char *argv[], int *flags)
     }
 
     while (1) {
+        // check for the confirmation
+        // bzero(buffer,256);
+        // n = recv(sockfd, buffer, 255, 0);
+        // if (n == 0) {
+        //     error("ERROR connection lost\n");
+        // }
+        
         bzero(buffer,256);
         fgets(buffer,255,stdin);
-        n = write(sockfd, buffer, strlen(buffer));
+        n = send(sockfd, buffer, strlen(buffer), 0);
+        // n = write(sockfd, buffer, strlen(buffer));
         if (n < 0) {
             error("ERROR writing to socket\n");
         }
