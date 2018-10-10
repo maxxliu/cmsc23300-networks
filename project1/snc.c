@@ -141,6 +141,7 @@ void runServer(int argc, char *argv[], int *flags)
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
+    socklen_t addrlen = sizeof(cli_addr);
     struct hostent *server;
     int n;
 
@@ -185,6 +186,15 @@ void runServer(int argc, char *argv[], int *flags)
 
     if (flags[1]) {
         // used UDP so we dont need to listen() or accept()
+        while (1) {
+            bzero(buffer, 256);
+            n = recvfrom(sockfd, buffer, 255, 0, 
+                         (struct sockaddr *) &cli_addr, (socklen_t *) &addrlen);
+            if (n < 0) {
+                error("ERROR on receive\n");
+            }
+            printf("%s", buffer);
+        }
     } else {
         // used TCP so we need to listen() and accept()
         listen(sockfd, 5);
@@ -261,27 +271,72 @@ void runClient(int argc, char *argv[], int *flags)
           server->h_length);
     serv_addr.sin_port = htons(portno);
 
-    if (connect(sockfd, (struct sockaddr *) &serv_addr, 
+    if (flags[1]) {
+        // used UDP so we do not need to connect()
+        while (1) {
+            bzero(buffer, 256);
+            fgets(buffer, 255, stdin);
+            n = sendto(sockfd, buffer, strlen(buffer), 0, 
+                       (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+            if (n < 0) {
+                error("ERROR sending message\n");
+            }
+        }
+
+    } else {
+        // used TCP so we need to connect()
+        if (connect(sockfd, (struct sockaddr *) &serv_addr, 
         sizeof(serv_addr)) < 0) {
         error("ERROR connecting\n");
-    }
+        }
 
-    while (1) {
-        // check for the confirmation
-        // bzero(buffer,256);
-        // n = recv(sockfd, buffer, 255, 0);
-        // if (n == 0) {
-        //     error("ERROR connection lost\n");
-        // }
-        
-        bzero(buffer,256);
-        fgets(buffer,255,stdin);
-        n = send(sockfd, buffer, strlen(buffer), 0);
-        // n = write(sockfd, buffer, strlen(buffer));
-        if (n < 0) {
-            error("ERROR writing to socket\n");
+        while (1) {
+            // check for the confirmation
+            // bzero(buffer,256);
+            // n = recv(sockfd, buffer, 255, 0);
+            // if (n == 0) {
+            //     error("ERROR connection lost\n");
+            // }
+            
+            bzero(buffer, 256);
+            if (fgets(buffer, 255, stdin) == NULL) {
+                // Ctrl-D was pressed and we need to exit
+                exit(0);
+            }
+            //
+            n = send(sockfd, buffer, strlen(buffer), 0);
+            // n = write(sockfd, buffer, strlen(buffer));
+            if (n < 0) {
+                error("ERROR writing to socket\n");
+            }
         }
     }
+
+    // if (connect(sockfd, (struct sockaddr *) &serv_addr, 
+    //     sizeof(serv_addr)) < 0) {
+    //     error("ERROR connecting\n");
+    // }
+
+    // while (1) {
+    //     // check for the confirmation
+    //     // bzero(buffer,256);
+    //     // n = recv(sockfd, buffer, 255, 0);
+    //     // if (n == 0) {
+    //     //     error("ERROR connection lost\n");
+    //     // }
+        
+    //     bzero(buffer, 256);
+    //     if (fgets(buffer, 255, stdin) == NULL) {
+    //         // Ctrl-D was pressed and we need to exit
+    //         exit(0);
+    //     }
+    //     //
+    //     n = send(sockfd, buffer, strlen(buffer), 0);
+    //     // n = write(sockfd, buffer, strlen(buffer));
+    //     if (n < 0) {
+    //         error("ERROR writing to socket\n");
+    //     }
+    // }
     // bzero(buffer,256);
     // fgets(buffer,255,stdin);
     // n = write(sockfd, buffer, strlen(buffer));
