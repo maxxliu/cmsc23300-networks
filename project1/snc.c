@@ -49,9 +49,9 @@ int main(int argc, char *argv[])
     // c = argv[i];
     // printf("%s\n", argv[1]);
     // printf("argc = %i\n", argc);
-    while (1) {
+    // while (1) {
 
-    }
+    // }
 
     return 0;
 }
@@ -141,6 +141,7 @@ void runServer(int argc, char *argv[], int *flags)
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
+    struct hostent *server;
     int n;
 
     // first need to know to use either TCP or UDP
@@ -165,7 +166,13 @@ void runServer(int argc, char *argv[], int *flags)
     if (flags[2]) {
         // set the hostname to the user specified one
         printf("setting server address to %s\n", argv[argc - 2]);
-        serv_addr.sin_addr.s_addr = inet_addr(argv[argc - 2]);
+        server = gethostbyname(argv[argc - 2]);
+        if (!server) {
+            error("ERROR invalid hostname\n");
+        }
+        bcopy((char *) server->h_addr, 
+              (char *) &serv_addr.sin_addr.s_addr, 
+              server->h_length);
     } else {
         // set it to defualt
         printf("setting server address to INADDR_ANY\n");
@@ -175,18 +182,33 @@ void runServer(int argc, char *argv[], int *flags)
     if (bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         error("ERROR on binding\n");
     }
-    listen(sockfd, 5);
-    clilen = sizeof(cli_addr);
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-    if (newsockfd < 0) {
-        error("ERROR on accept\n");
+
+    if (flags[1]) {
+        // used UDP so we dont need to listen() or accept()
+    } else {
+        // used TCP so we need to listen() and accept()
+        listen(sockfd, 5);
+        clilen = sizeof(cli_addr);
+        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        if (newsockfd < 0) {
+            error("ERROR on accept\n");
+        }
+        
+        while (1) {
+            bzero(buffer, 256);
+            n = read(newsockfd, buffer, 255);
+            if (n < 0) {
+                error("ERROR reading from socket\n");
+            }
+            printf("%s\n", buffer);
+        }
+        // bzero(buffer, 256);
+        // n = read(newsockfd, buffer, 255);
+        // if (n < 0) {
+        //     error("ERROR reading from socket\n");
+        // }
+        // printf("%s\n", buffer);
     }
-    bzero(buffer, 256);
-    n = read(newsockfd, buffer, 255);
-    if (n < 0) {
-        error("ERROR reading from socket\n");
-    }
-    printf("%s\n", buffer);
 }
 
 
@@ -233,10 +255,19 @@ void runClient(int argc, char *argv[], int *flags)
         sizeof(serv_addr)) < 0) {
         error("ERROR connecting\n");
     }
-    bzero(buffer,256);
-    fgets(buffer,255,stdin);
-    n = write(sockfd, buffer, strlen(buffer));
-    if (n < 0) {
-        error("ERROR writing to socket\n");
+
+    while (1) {
+        bzero(buffer,256);
+        fgets(buffer,255,stdin);
+        n = write(sockfd, buffer, strlen(buffer));
+        if (n < 0) {
+            error("ERROR writing to socket\n");
+        }
     }
+    // bzero(buffer,256);
+    // fgets(buffer,255,stdin);
+    // n = write(sockfd, buffer, strlen(buffer));
+    // if (n < 0) {
+    //     error("ERROR writing to socket\n");
+    // }
 }
