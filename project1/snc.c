@@ -32,26 +32,13 @@ int main(int argc, char *argv[])
     // now we need to see if we should run as a client or as a server
     if (flags[0]) {
         // run as server
-        printf("running as server\n");
+        // printf("running as server\n");
         runServer(argc, argv, flags);
     } else {
         // run as client
-        printf("running as client\n");
+        // printf("running as client\n");
         runClient(argc, argv, flags);
     }
-
-    // first I want to check the command line arguments to make sure that the 
-    // user has input a valid call to the program
-
-
-    // int i = 0;
-    // char c[100];
-    // c = argv[i];
-    // printf("%s\n", argv[1]);
-    // printf("argc = %i\n", argc);
-    // while (1) {
-
-    // }
 
     return 0;
 }
@@ -148,11 +135,11 @@ void runServer(int argc, char *argv[], int *flags)
     // first need to know to use either TCP or UDP
     if (flags[1]) {
         // use UDP
-        printf("using UDP\n");
+        // printf("using UDP\n");
         sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     } else {
         // use TCP
-        printf("using TCP\n");
+        // printf("using TCP\n");
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
     }
     if (sockfd < 0) {
@@ -166,7 +153,7 @@ void runServer(int argc, char *argv[], int *flags)
     //see if we need to set a hostname
     if (flags[2]) {
         // set the hostname to the user specified one
-        printf("setting server address to %s\n", argv[argc - 2]);
+        // printf("setting server address to %s\n", argv[argc - 2]);
         server = gethostbyname(argv[argc - 2]);
         if (!server) {
             error("ERROR invalid hostname\n");
@@ -176,7 +163,7 @@ void runServer(int argc, char *argv[], int *flags)
               server->h_length);
     } else {
         // set it to defualt
-        printf("setting server address to INADDR_ANY\n");
+        // printf("setting server address to INADDR_ANY\n");
         serv_addr.sin_addr.s_addr = INADDR_ANY;
     }
 
@@ -199,7 +186,8 @@ void runServer(int argc, char *argv[], int *flags)
         // used TCP so we need to listen() and accept()
         listen(sockfd, 5);
         clilen = sizeof(cli_addr);
-        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, 
+                           (socklen_t *) &clilen);
         if (newsockfd < 0) {
             error("ERROR on accept\n");
         }
@@ -212,22 +200,13 @@ void runServer(int argc, char *argv[], int *flags)
                 error("ERROR reading from socket\n");
             }
             if (n == 0) {
-                error("ERROR connection lost\n");
+                // close the connection
+                close(newsockfd);
+                // error("ERROR connection lost\n");
+                exit(0);
             }
             printf("%s", buffer);
-
-            // after receiving i send back a message saying i got it
-            // n = send(newsockfd, buffer, strlen(buffer), 0);
-            // if (n < 0) {
-            //     error("ERROR sending confirmation\n");
-            // }
         }
-        // bzero(buffer, 256);
-        // n = read(newsockfd, buffer, 255);
-        // if (n < 0) {
-        //     error("ERROR reading from socket\n");
-        // }
-        // printf("%s\n", buffer);
     }
 }
 
@@ -236,6 +215,7 @@ void runServer(int argc, char *argv[], int *flags)
 void runClient(int argc, char *argv[], int *flags)
 {
     int sockfd, portno, n;
+    int wr = 1;
 
     struct sockaddr_in serv_addr;
     struct hostent *server;
@@ -247,11 +227,11 @@ void runClient(int argc, char *argv[], int *flags)
     // first need to know to use either TCP or UDP
     if (flags[1]) {
         // use UDP
-        printf("using UDP\n");
+        // printf("using UDP\n");
         sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     } else {
         // use TCP
-        printf("using TCP\n");
+        // printf("using TCP\n");
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
     }
     if (sockfd < 0) {
@@ -275,12 +255,19 @@ void runClient(int argc, char *argv[], int *flags)
         // used UDP so we do not need to connect()
         while (1) {
             bzero(buffer, 256);
-            fgets(buffer, 255, stdin);
-            n = sendto(sockfd, buffer, strlen(buffer), 0, 
-                       (struct sockaddr *) &serv_addr, sizeof(serv_addr));
-            if (n < 0) {
-                error("ERROR sending message\n");
+            if (fgets(buffer, 255, stdin) == NULL) {
+                // Ctrl-D was pressed and we need to stop sending messages
+                // but we do not need to close the application
+                shutdown(sockfd, SHUT_WR);
+                wr = 0;
             }
+            if (wr) {
+                n = sendto(sockfd, buffer, strlen(buffer), 0, 
+                           (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+                if (n < 0) {
+                    error("ERROR sending message\n");
+                }
+            } 
         }
 
     } else {
@@ -290,20 +277,14 @@ void runClient(int argc, char *argv[], int *flags)
         error("ERROR connecting\n");
         }
 
-        while (1) {
-            // check for the confirmation
-            // bzero(buffer,256);
-            // n = recv(sockfd, buffer, 255, 0);
-            // if (n == 0) {
-            //     error("ERROR connection lost\n");
-            // }
-            
+        while (1) {            
             bzero(buffer, 256);
             if (fgets(buffer, 255, stdin) == NULL) {
                 // Ctrl-D was pressed and we need to exit
+                close(sockfd);
                 exit(0);
             }
-            //
+            
             n = send(sockfd, buffer, strlen(buffer), 0);
             // n = write(sockfd, buffer, strlen(buffer));
             if (n < 0) {
@@ -311,36 +292,4 @@ void runClient(int argc, char *argv[], int *flags)
             }
         }
     }
-
-    // if (connect(sockfd, (struct sockaddr *) &serv_addr, 
-    //     sizeof(serv_addr)) < 0) {
-    //     error("ERROR connecting\n");
-    // }
-
-    // while (1) {
-    //     // check for the confirmation
-    //     // bzero(buffer,256);
-    //     // n = recv(sockfd, buffer, 255, 0);
-    //     // if (n == 0) {
-    //     //     error("ERROR connection lost\n");
-    //     // }
-        
-    //     bzero(buffer, 256);
-    //     if (fgets(buffer, 255, stdin) == NULL) {
-    //         // Ctrl-D was pressed and we need to exit
-    //         exit(0);
-    //     }
-    //     //
-    //     n = send(sockfd, buffer, strlen(buffer), 0);
-    //     // n = write(sockfd, buffer, strlen(buffer));
-    //     if (n < 0) {
-    //         error("ERROR writing to socket\n");
-    //     }
-    // }
-    // bzero(buffer,256);
-    // fgets(buffer,255,stdin);
-    // n = write(sockfd, buffer, strlen(buffer));
-    // if (n < 0) {
-    //     error("ERROR writing to socket\n");
-    // }
 }
