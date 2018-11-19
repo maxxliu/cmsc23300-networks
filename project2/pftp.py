@@ -83,7 +83,7 @@ def check_args(args):
             if tmp[0] != 'ftp:':
                 # no other protocols are allowed
                 print('HINT: need to use ftp:// if you specify a protocol')
-                error_07()
+                error_04()
         return 'single'
     elif args.config:
         # check that the given config file is valid
@@ -151,18 +151,22 @@ def recv_msg(sock, lf, name=None):
     # change name really quickly
     if name:
         name = 'Thread ' + str(name) + ': '
+    else:
+        name = ''
     buff = 1 # now we can only read one line at a time
     # recv the message
     try:
         data = sock.recv(buff)
     except:
-        print("DEV ERROR HERE, FIX THIS MESSAGE AND THE ERROR")
+        print("ERROR: Could not receive bytes from server")
+        error_07()
     # check that we are at the end
     while data.decode()[-1] != '\n':
         try:
             to_add = sock.recv(buff)
         except:
-            print('ERROR FIX THIS MSG AND FAILED TO RECV MSG')
+            print("ERROR: Could not receive bytes from server")
+            error_07()
         data += to_add
     # decode the data and strip returns
     # NOTE: this is no longer neccessary (to split) but regardless should not
@@ -207,6 +211,8 @@ def send_msg(sock, lf, msg, name=None):
     # change name really quickly
     if name:
         name = 'Thread ' + str(name) + ': '
+    else:
+        name = ''
     # strip away the '\r\n' if it is there
     msg = msg.strip('\r\n')
     # handle the log file
@@ -225,7 +231,8 @@ def send_msg(sock, lf, msg, name=None):
     try:
         sock.sendall(msg)
     except:
-        print("DEV ERROR HERE, FIX THIS MESSAGE AND THE ERROR")
+        print('ERROR: Could not send message to server')
+        error_07()
 
 
 def check_ftp_code(code, sock):
@@ -289,18 +296,20 @@ def recv_file(server, port, total):
         sock.connect(serv_address)
     except:
         # error connecting
-        print("FIX THIS MESSAGE, CANNOT RECV FILE")
+        error_01()
     # now we need to receive the file
     buff = int(total / 4)
     try:
         data = sock.recv(buff)
     except:
-        print("FIX THIS MESSAGE, CANNOT RECV FILE")
+        print("ERROR: Could not receive bytes from server")
+        error_07()
     while len(data) < total:
         try:
             to_add = sock.recv(buff)
         except:
-            print("FIX THIS MESSAGE, CANNOT RECV FILE")
+            print("ERROR: Could not receive bytes from server")
+            error_07()
         # add to the data we have received so far
         data += to_add
 
@@ -332,20 +341,22 @@ def recv_list(server, port):
         sock.connect(serv_address)
     except:
         # error connecting
-        print("FIX THIS MESSAGE, CANNOT RECV FILE")
+        error_01()
     # now we need to receive the list of files
     buff = 16384 # recv large amount so hopefully we get everything
     try:
         data = sock.recv(buff)
     except:
-        print("FIX THIS MESSAGE, CANNOT RECV FILE")
+        print("ERROR: Could not receive bytes from server")
+        error_07()
     # this is not perfect but I know that the last character must be the
     # newline character
     while data.decode()[-1] != '\n':
         try:
             to_add = sock.recv(buff)
         except:
-            print("FIX THIS MESSAGE, CANNOT RECV FILE")
+            print("ERROR: Could not receive bytes from server")
+            error_07()
         # add to the data we have received so far
         data += to_add
 
@@ -376,7 +387,7 @@ def get_file_size(data, file):
             size = int(m[0])
             return size
     # if no matches found then give an error
-    print("ERROR: FIX THIS MESSAGE AND CANNOT FIND FILE")
+    error_03()
 
 
 ###################################
@@ -415,7 +426,7 @@ def single_ftp(args):
         sock.connect(serv_address)
         recv_msg(sock, lf)
     except:
-        print('FIX THIS MSG, CANNOT CONNECT TO SERVER')
+        error_01()
 
     # log into the server now
     send_msg(sock, lf, 'USER ' + args.username)
@@ -504,7 +515,8 @@ def parallel_ftp(args):
     for f in ret_data:
         if len(f) == 0:
             # something went wrong, throw error
-            print('ERROR FIX THIS MSG AND DID NOT RETURN WHOLE FILE')
+            print('ERROR: Failed to retrieve all parts of the file')
+            error_07()
         final_file += f
     f = open(thread_args[0]['file'], 'wb')
     f.write(final_file)
@@ -535,7 +547,7 @@ def thread_ftp(args, lf, position, total, ret_data):
         sock.connect(serv_address)
         recv_msg(sock, lf, position)
     except:
-        print('FIX THIS MSG, CANNOT CONNECT TO SERVER')
+        error_01()
 
     # log into the server now
     send_msg(sock, lf, 'USER ' + args['username'], position)
@@ -602,14 +614,15 @@ def process_config(args):
     try:
         f = open(args.config)
     except:
-        print('ERROR FILE DNE FIX THIS ERROR MESSAGE')
+        error_03()
     f = f.read()
     f = f.split('\n')
     f = [i for i in f if len(i) > 0] # remove empty strings
     expect = len(f) # expect this number of threads
     f = [i for i in f if i[:6] == 'ftp://'] # must specify ftp protocol
     if len(f) != expect:
-        print('ERROR FIX THIS MSG AND BAD CONFIG FILE')
+        print('ERROR: Config file not formatted correctly')
+        error_04()
     # now need to get the info out of each line
     thread_args = []
     p = 'ftp://([a-zA-Z0-9_.-]+):([a-zA-Z0-9_.-]+)' + \
@@ -618,7 +631,8 @@ def process_config(args):
         # expect to extract 4 data points from each line
         data = re.findall(p, i)[0]
         if len(data) != 4:
-            print('ERROR FIX THIS MSG AND BAD CONFIG FILE')
+            print('ERROR: Config file not formatted correctly')
+            error_04()
         d = {}
         d['username'] = data[0]
         d['password'] = data[1]
@@ -630,7 +644,8 @@ def process_config(args):
     n = [i['file'] for i in thread_args]
     n = set(n)
     if len(n) > 1:
-        print('ERROR FIX THIS TOO MANY FILES SPECIFIED')
+        print('ERROR: Config file not formatted correctly')
+        error_04()
 
     return thread_args
 
