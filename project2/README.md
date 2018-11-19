@@ -1,6 +1,7 @@
 # Parallel ftp
 
 Implementation of single threaded and multi-threaded ftp download
+in python3
 
 Single thread ftp example where USER is username and PASS is password:
 ```
