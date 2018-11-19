@@ -251,6 +251,15 @@ def check_ftp_code(code, sock):
     if code == 530:
         sock.shutdown(socket.SHUT_RDWR);sock.close()
         error_02()
+    if code in {500, 502}:
+        sock.shutdown(socket.SHUT_RDWR);sock.close()
+        error_05()
+    if code == 425:
+        sock.shutdown(socket.SHUT_RDWR);sock.close()
+        error_04()
+    if code in {550, 553}:
+        sock.shutdown(socket.SHUT_RDWR);sock.close()
+        error_06()
 
 
 def pasv_port(data):
@@ -270,7 +279,7 @@ def pasv_port(data):
     return port
 
 
-def recv_file(server, port, total):
+def recv_file(server, port, total, main_sock, lf, position=None):
     '''
     after the ftp server gives a port to receive data from, open a connection
     to the server and that port and receive the data, only receive amount of
@@ -282,8 +291,9 @@ def recv_file(server, port, total):
         total (int) - stop reading after receiving this many bytes, if it is
                       not parallel then this number should just be the size of
                       the full file
-        end (boolean) - used for parallel ftp, tells the thread to recv until
-                        the end of the file
+         main_sock (socket connection) - connection from the main function
+         lf (log file)
+         position (int)
 
     outputs:
         data (byte str) - the bytes that were returned by server
@@ -297,6 +307,9 @@ def recv_file(server, port, total):
     except:
         # error connecting
         error_01()
+    # check that the other side is ok
+    recv_msg(main_sock, lf, position)
+
     # now we need to receive the file
     buff = int(total / 4)
     try:
@@ -316,7 +329,7 @@ def recv_file(server, port, total):
     return data
 
 
-def recv_list(server, port):
+def recv_list(server, port, main_sock, lf, position=None):
     '''
     NOTE: this was only used to find the byte sizes of the files (I did not
           realize there was a SIZE command) however this works and I will
@@ -329,6 +342,9 @@ def recv_list(server, port):
     inputs:
         server (str) - server name to connect to
         port (int) - port number to connect to
+        main_sock (main socket connections) - from the func that called this
+        lf (log file)
+        position (int)
 
     ouputs:
         data (str) - data sent by the server
@@ -342,6 +358,9 @@ def recv_list(server, port):
     except:
         # error connecting
         error_01()
+    # first check to see that everything is ok on the other side
+    recv_msg(main_sock, lf, position)
+
     # now we need to receive the list of files
     buff = 16384 # recv large amount so hopefully we get everything
     try:
@@ -441,8 +460,7 @@ def single_ftp(args):
     send_msg(sock, lf, 'TYPE I')
     recv_msg(sock, lf)
     send_msg(sock, lf, 'LIST')
-    f_list = recv_list(args.server, port) # list of files on ftp server
-    recv_msg(sock, lf) # ftp server saying that the data is coming
+    f_list = recv_list(args.server, port, sock, lf) # list of files
     recv_msg(sock, lf) # ftp server daying that data was sent ok
     size = get_file_size(f_list, args.file)
 
@@ -453,9 +471,12 @@ def single_ftp(args):
     send_msg(sock, lf, 'TYPE I')
     recv_msg(sock, lf)
     send_msg(sock, lf, 'RETR ' + args.file)
-    file = recv_file(args.server, port, size)
-    recv_msg(sock, lf) # ftp server saying that the data is coming
-    recv_msg(sock, lf) # ftp server daying that data was sent ok
+    file = recv_file(args.server, port, size, sock, lf)
+    recv_msg(sock, lf) # ftp server saying that data was sent ok
+    # check that we have the expected number of bytes
+    if len(file) != size:
+        print('ERROR: Did not retireve all bytes from file')
+        error_07()
     f = open(args.file, 'wb')
     f.write(file)
     f.close()
@@ -562,8 +583,7 @@ def thread_ftp(args, lf, position, total, ret_data):
     send_msg(sock, lf, 'TYPE I', position)
     recv_msg(sock, lf, position)
     send_msg(sock, lf, 'LIST', position)
-    f_list = recv_list(args['server'], port) # list of files on ftp server
-    recv_msg(sock, lf, position) # ftp server saying that the data is coming
+    f_list = recv_list(args['server'], port, sock, lf, position) # list of files
     recv_msg(sock, lf, position) # ftp server daying that data was sent ok
     size = get_file_size(f_list, args['file'])
 
@@ -584,8 +604,7 @@ def thread_ftp(args, lf, position, total, ret_data):
     send_msg(sock, lf, 'REST ' + str(start), position)
     recv_msg(sock, lf, position)
     send_msg(sock, lf, 'RETR ' + args['file'], position)
-    file = recv_file(args['server'], port, block)
-    recv_msg(sock, lf, position) # ftp server saying that the data is coming
+    file = recv_file(args['server'], port, block, sock, lf, position)
     recv_msg(sock, lf, position) # ftp server daying that data was sent ok
 
     # put the retrieved data in the correct place
@@ -629,7 +648,12 @@ def process_config(args):
         '@([a-zA-Z0-9_.-]+)/([a-zA-Z0-9_.-]+)'
     for i in f:
         # expect to extract 4 data points from each line
-        data = re.findall(p, i)[0]
+        data = re.findall(p, i)
+        if len(data) == 1:
+            data = data[0]
+        else:
+            print('ERROR: Config file not formatted correctly')
+            error_04()
         if len(data) != 4:
             print('ERROR: Config file not formatted correctly')
             error_04()
