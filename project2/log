@@ -1,46 +1,69 @@
-Thread 1: S->C: 220 Authorized Users Only
-Thread 1: C->S: USER cs23300
 Thread 2: S->C: 220 Authorized Users Only
 Thread 2: C->S: USER sockprogramming
 Thread 2: S->C: 331 Please specify the password.
 Thread 2: C->S: PASS rocks
+Thread 1: S->C: 220 Authorized Users Only
+Thread 1: C->S: USER cs23300
+Thread 3: S->C: 220 Authorized Users Only
+Thread 3: C->S: USER cs23300
 Thread 1: S->C: 331 Please specify the password.
 Thread 1: C->S: PASS youcandoit
+Thread 3: S->C: 331 Please specify the password.
+Thread 3: C->S: PASS youcandoit
 Thread 2: S->C: 230 Login successful.
 Thread 2: C->S: PASV
-Thread 1: S->C: 230 Login successful.
-Thread 1: C->S: PASV
-Thread 2: S->C: 227 Entering Passive Mode (128,135,164,133,88,56).
+Thread 2: S->C: 227 Entering Passive Mode (128,135,164,133,32,139).
 Thread 2: C->S: TYPE I
-Thread 1: S->C: 227 Entering Passive Mode (128,135,164,127,111,39).
-Thread 1: C->S: TYPE I
 Thread 2: S->C: 200 Switching to Binary mode.
 Thread 2: C->S: LIST
-Thread 1: S->C: 200 Switching to Binary mode.
-Thread 1: C->S: LIST
 Thread 2: S->C: 150 Here comes the directory listing.
-Thread 1: S->C: 150 Here comes the directory listing.
 Thread 2: S->C: 226 Directory send OK.
 Thread 2: C->S: PASV
+Thread 2: S->C: 227 Entering Passive Mode (128,135,164,133,111,174).
+Thread 2: C->S: TYPE I
+Thread 1: S->C: 230 Login successful.
+Thread 1: C->S: PASV
+Thread 2: S->C: 200 Switching to Binary mode.
+Thread 2: C->S: REST 2320803
+Thread 3: S->C: 230 Login successful.
+Thread 3: C->S: PASV
+Thread 2: S->C: 350 Restart position accepted (2320803).
+Thread 2: C->S: RETR lecture8.pdf
+Thread 1: S->C: 227 Entering Passive Mode (128,135,164,127,101,17).
+Thread 1: C->S: TYPE I
+Thread 3: S->C: 227 Entering Passive Mode (128,135,164,127,163,92).
+Thread 3: C->S: TYPE I
+Thread 1: S->C: 200 Switching to Binary mode.
+Thread 1: C->S: LIST
+Thread 3: S->C: 200 Switching to Binary mode.
+Thread 3: C->S: LIST
+Thread 2: S->C: 150 Opening BINARY mode data connection for lecture8.pdf (6962411 bytes).
+Thread 1: S->C: 150 Here comes the directory listing.
+Thread 3: S->C: 150 Here comes the directory listing.
 Thread 1: S->C: 226 Directory send OK.
 Thread 1: C->S: PASV
-Thread 2: S->C: 227 Entering Passive Mode (128,135,164,133,82,126).
-Thread 2: C->S: TYPE I
-Thread 2: S->C: 200 Switching to Binary mode.
-Thread 2: C->S: REST 116801
-Thread 1: S->C: 227 Entering Passive Mode (128,135,164,127,166,172).
+Thread 3: S->C: 226 Directory send OK.
+Thread 3: C->S: PASV
+Thread 1: S->C: 227 Entering Passive Mode (128,135,164,127,106,78).
 Thread 1: C->S: TYPE I
-Thread 2: S->C: 350 Restart position accepted (116801).
-Thread 2: C->S: RETR rfc959.pdf
 Thread 1: S->C: 200 Switching to Binary mode.
 Thread 1: C->S: REST 0
+Thread 3: S->C: 227 Entering Passive Mode (128,135,164,127,58,174).
+Thread 3: C->S: TYPE I
 Thread 1: S->C: 350 Restart position accepted (0).
-Thread 1: C->S: RETR rfc959.pdf
-Thread 2: S->C: 150 Opening BINARY mode data connection for rfc959.pdf (233602 bytes).
-Thread 2: S->C: 226 Transfer complete.
-Thread 2: C->S: QUIT
-Thread 2: S->C: 221 Goodbye.
-Thread 1: S->C: 150 Opening BINARY mode data connection for rfc959.pdf (233602 bytes).
-Thread 1: S->C: 226 Transfer complete.
+Thread 1: C->S: RETR lecture8.pdf
+Thread 3: S->C: 200 Switching to Binary mode.
+Thread 3: C->S: REST 4641606
+Thread 3: S->C: 350 Restart position accepted (4641606).
+Thread 3: C->S: RETR lecture8.pdf
+Thread 1: S->C: 150 Opening BINARY mode data connection for lecture8.pdf (6962411 bytes).
+Thread 3: S->C: 150 Opening BINARY mode data connection for lecture8.pdf (6962411 bytes).
+Thread 1: S->C: 426 Failure writing network stream.
 Thread 1: C->S: QUIT
 Thread 1: S->C: 221 Goodbye.
+Thread 3: S->C: 226 Transfer complete.
+Thread 3: C->S: QUIT
+Thread 3: S->C: 221 Goodbye.
+Thread 2: S->C: 426 Failure writing network stream.
+Thread 2: C->S: QUIT
+Thread 2: S->C: 221 Goodbye.

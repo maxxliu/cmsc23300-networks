@@ -102,7 +102,7 @@ def check_args(args):
 
 
 def error_00():
-    print('Operation successfully completed', file=sys.stderr)
+    print('Operation successfully completed')
     sys.exit(0)
 def error_01():
     print('ERROR: Cannot connect to server', file=sys.stderr)
@@ -239,6 +239,10 @@ def check_ftp_code(code, sock):
     '''
     given an ftp response code, determine what action to take. code can
     either be ok or not be ok in which we display appropriate error message
+    NOTE: I do not check for 426, this is because 426 will happen in
+          multi-thread when connections are closed halfway through. The
+          program will also check that the returned value is the correct size
+          afterwards so this is fine
 
     inputs:
         code (int) - response code given by the ftp server
