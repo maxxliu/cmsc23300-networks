@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en-US"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en-US"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"> <!--<![endif]-->
+
+<head>
+	<title>Addressing the Cellular Capacity Crisis with 60 GHz Picocells</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	
+	<link rel="stylesheet" href="60ghz.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css"><!-- google fonts -->
+</head>
+<body>
+	<div class = "wrap">
+        <!--<div class = "nav">
+            <ul>
+            	<li class="active"><a href = "./">About</a></li>
+				<li><a href = "http://sandlab.cs.ucsb.edu/">SAND Lab</a></li>
+            </ul>
+        </div>-->
+        
+		<div class ="header">
+			<h1>NeTS: Small: Mobile mmWaves: <br/>Addressing the Cellular Capacity Crisis with 60 GHz Picocells</h1>
+            <p>UC Santa Barbara</p>
+		</div>
+		
+		<div class = "main">
+            <h2>About</h2>
+            <p>
+            	In this project we design and validate a
+                transformational approach to Cellular 1000X (i.e.,
+                increasing the capacity of cellular networks by
+                1000-fold), focusing on dense urban environments where
+                today’s cellular networks are facing a capacity
+                crisis. Our architecture is based on outdoor picocells using the
+                60 GHz unlicensed band, focusing initially on the
+                downlink bottleneck, with standard 4G LTE used for
+                feedback and uplink data. </p>
+
+		  <p class="img"><img src="offload-60g.png"/><span>Figure 1</span></p>
+		  <p>
+		  
+		  Figure 1 plots our proposed 60GHz picocell architecture for outdoor mobile
+  broadband, which augments existing LTE networks for significant
+  increase in capacity.  Each basestation contains many antenna arrays, each with a large
+  number of elements. Leveraging LTE uplink as the feedback loop, each basestation can track users, form highly directional beams simultaneously to
+  multiple users.  The beams follow users 
+  through direct or reflected paths, creating high-bandwidth downlink
+  transmissions. Users can beam in reverse directions to build 60GHz uplink, or fall back to LTE uplink.
+
+                    </p>
+                    
+                    <h2>Project Team</h2>
+                    <p> <a
+		  href="http://sputnik.ece.ucsb.edu/wcsl/people/madhow/">Prof. Upamanyu
+		  Madhow</a> (PI), <a
+		  href="http://www.cs.ucsb.edu/~htzheng">Prof. Heather
+		  Zheng</a> (co-PI), Zhinus Marzi (Graduate
+		  Researcher), Maryam E. Rasekh (Graduate Researcher),Yuanshun Yao
+		  (Graduate Researcher),
+		  Zengbin Zhang (Graduate Researcher), Yibo Zhu (Graduate
+		  Researcher), Yanzi Zhu (Graduate Researcher) 
+                    </p>
+					
+					
+					<h2>Research Activities</h2>
+					<p>
+						 Year 1: We have focused on measurement-based validation of our basic concept. In particular, we focused on convincing the larger networking community that, while our approach to cellular 1000X is radical, there are no fundamental physical limitations to achieving it.  This was done by a series of measurements in controlled as well as natural urban environments, which indicate that there is adequate link budget even when using reflected paths, that blockage can be addressed using reflections and picoclouds, that interference can be significantly reduced by using directional transmission, and that steerable arrays on off-the-shelf 60 GHz IEEE 802.11ad transceivers designed for indoor environments can keep up with pedestrian mobility.  These results, together with a preliminary simulation-based interference analysis, were published in MobiCom 2014. 
+					</p>
+
+<p> Year 2: We focused on three research items. First, we have been working
+on quantifying inter-cell interference using a combination of analysis and
+simulation for 60 GHz picocells deployed in typical urban environments.  In
+particular, we carry out an interference analysis for mm wave picocells in an
+urban canyon, accounting for the geometry associated with the sparse
+multipath characteristic of this band.  We show that the inter-cell
+interference caused by the main beam directed at the desired user vanishes
+after a number of cells determined by the heights of the BS and the user, and
+the attainable network capacity to be of the order of Terabits/sec per km
+along the canyon, using 2 GHz of spectrum.  Overall, our analysis provides a
+strong indication of the very large capacity offered by the 60Ghz
+picocells. Second, we propose and investigate a compressive architecture for
+estimation and tracking of sparse spatial channels in millimeter (mm) wave
+picocellular networks. Finally, we develop a 60Ghz mobile imaging algorithm
+that leveraging 60GHz communication hardware in mobile devices, and capturing
+signals reflected by the target surface. This work led to a conference paper
+at MobiCom 2015.  
+</p>
+
+<p> Year 3: We formed a close collaboration with the Facebook Terragraph team, with students from the project interning at Facebook to help with their design and deployment of a mm wave mesh network.  We also developed an experimental testbed at UCSB based on mm wave nodes donated by Facebook.  Experiments showed that the compressive algorithms underlying our architecture need to be modified.  The original algorithms rely on phase coherence across beacons, which is difficult to attain due to oscillator drift between transmitter and receiver. The Facebook nodes, as well as other off-the-shelf hardware, do not support such coherent measurements.  This led us to develop new noncoherent compressive channel estimation algorithms, which can reconstruct the spatial channel based on received signal measurements alone.  We also worked on a joint routing and resource allocation strategy for mm wave mesh backhaul networks, and developed an optimization approach that can provide an optimal solution for relatively small networks. Initial results were presented at Allerton 2015.</p>
+
+<p> Year 4: This was an extension year, where we focused on consolidating our
+work, and folding it into a large NSF project with a broader charter.  We
+presented initial results from our noncoherent compressive approach at
+Hotmobile 2017. This algorithm works when one of the paths is dominant, which
+is the case for all the campus settings in which we ran our experiments.
+However, we have since also gone on to develop a noncoherent algorithm that
+works for a general sparse multipath channel, using a novel combination of
+phase retrieval and coherent compressive estimation.  These results have been
+submitted for publication, and are also placed in arxiv for timely
+dissemination.  We have also developed a more scalable optimization strategy
+for mm wave backhaul that works for large networks; to be submitted for
+publication soon.  Finally, we have extended our 60GHz mobile imaging work to
+use co-located TX and RX on a single mobile device, leading to a publication
+at the MobiSys 2017 conference.</p>
+
+
+
+                    <h2>Publications</h2>
+                    <ul class = "pubs">
+                        <li>
+                        	<span class="pubTitle">Demystifying 60GHz Outdoor Picocells</span><br/>
+                            Yibo Zhu, Zengbin Zhang, Zhinous Marzi, Chris Nelson, Upamanyu Madhow, Ben Y. Zhao, Haitao Zheng<br/>
+                            Proceedings of 20th Annual International Conference on Mobile Computing and Networking (MobiCom)<br/>
+                            Maui, HI, Sept 2014. 
+                            [<a href="http://www.cs.ucsb.edu/~ravenben/publications/pdf/60pico-mobicom14.pdf">Paper</a>]
+                        </li>
+
+                          <li> <span class="pubTitle"> Interference Analysis for mm-Wave Picocells </span><br/>
+Zhinus Marzi, Upamanyu Madhow, Haitao Zheng<br/>
+                        Proceedings of IEEE Globecom <br/> San Diego, CA, Dec 2015. [<a href="http://www.cs.ucsb.edu/~htzheng/publications/pdfs/marzi_Globecom2015.pdf">Paper</a>] 
+
+</li>
+
+
+			<li> <span class="pubTitle"> Compressive channel estimation and tracking for large arrays in mm wave picocells </span><br>
+				Zhinus Marzi, Dinesh Ramasamy and Upamanyu Madhow <br>
+				IEEE Journal of Selected Topics in Signal Processing, special issue on Signal Processing for Millimeter Wave Wireless Communications, 10.3 (2016): 514-527. [<a href="http://ieeexplore.ieee.org/document/7390019/">Paper</a>]
+			</li>
+
+
+<li> <span class="pubTitle"> Interference aware routing and spectrum allocation for millimeter wave backhaul in urban picocells </span><br>
+				Maryam E. Rasekh, Dongning Guo and Upamanyu Madhow <br>
+			Proceedings of 53rd Allerton Conference on Communication, Control, and Computing, October 2015 [<a href="http://ieeexplore.ieee.org/document/7557347/">Paper</a>]
+			</li>
+
+			<li> <span class="pubTitle"> Noncoherent mmWave path tracking </span><br>
+				Maryam E. Rasekh, Zhinus Marzi, Yanzi Zhu,
+				Upamanyu Madhow, and Haitao Zheng <br>
+		 Proceedings of the 18th International Workshop on Mobile Computing Systems and Applications (Hotmobile 2017), Feb. 2017. [<a href="https://dl.acm.org/citation.cfm?id=3032974">Paper</a>]
+			</li>
+
+			<li><span class="pubTitle">Noncoherent compressive
+ channel estimation for mm-wave massive MIMO</span>,<br>
+			Maryam E. Rasekh and Upamanyu Madhow <br>
+			arxiv 1801.06608 (submitted for publication).
+			</li>
+		
+			
+
+
+			<li> <span class="pubTitle">60GHz Mobile Imaging Radar </span><br>
+			   Yibo Zhu, Yanzi Zhu, Zengbin Zhang, Ben Y. Zhao and Haitao Zheng <br>
+			   Proceedings of 16th Workshop on Mobile Computing Systems and Applications (HotMobile)<br>
+				 Santa Fe, NM, Feb 2015.[<a href="http://www.cs.ucsb.edu/~ravenben/publications/pdf/60gradar-hotmobile15.pdf"> Paper </a>] 
+
+			</li>
+			
+			<li> <span class="pubTitle">Reusing 60GHz Radios for Mobile Radar Imaging </span><br>
+			     Yanzi Zhu, Yibo Zhu, Ben Y. Zhao and Haitao Zheng <br>
+			     Proceedings of 21st Annual International Conference on Mobile Computing and Networking (MobiCom)<br/>
+			     Paris, France, Sept 2015  [<a href="http://www.cs.ucsb.edu/~ravenben/publications/pdf/60gradar-mobicom15.pdf"> Paper </a>] 
+		        </li>
+
+			<li><span class="pubTitle">Object Recognition and
+			Navigation using a Single Networking Device
+			</span><br>
+			Yanzi Zhu, Yuanshun Yao, Ben Y. Zhao and Haitao Zheng <br>
+Proceedings of the 15th ACM International Conference on Mobile Systems, Applications, and Services (MobiSys 2017), 
+Niagara Falls, NY, June 2017.  [<a href="http://people.cs.uchicago.edu/~ravenben/publications/abstracts/60gradar-mobisys17.html"> Paper </a>]
+
+
+                    </ul>
+                    
+                    <h2>Educational Activities</h2>
+                    <p>Graduate students working on this program are exposed to an interdisciplinary mix of concepts from signal processing, communication theory, network protocols and capacity analysis, and measurement-based modeling.</p>
+                    
+                    <h2>Broader Impact</h2>
+                  <p> Our systems vision is based on the power of highly directional networking, and includes approaches to adapt highly directional beams subject to hardware constraints such as coarse phase control. We believe that demonstration of the potential gains will stimulate further innovations in design of radio frequency integrated circuits (RFICs) and antenna arrays, and are working actively with circuit designers to make this happen.</p>
+
+<p>We have had close interactions with industry partners, such as Facebook, Qualcomm, Samsung, Nokia, and Google, who have supplemented this award with gift funding.  We note in particular our relationship with the Facebook Terragraph team, which donated mm wave network nodes that enabled many of our experiments.  Graduate students on this project helped disseminate our ideas, and gained hands-on experience, through summer internships in industry.</p>
+
+            </div>
+
+            <div class = "copyright">
+                <p>Copyright &copy; 2017 SAND Lab, UCSB. All rights reserved.</p>
+            </div>
+        </div>
+    </body>
+</html>
+

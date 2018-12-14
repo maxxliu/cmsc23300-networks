@@ -1,0 +1,188 @@
+<!DOCTYPE>
+<html>
+
+<head>
+<title>References for Click Events</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<style>
+.inline{
+  display: inline-block;
+}
+</style>
+
+
+<style type="text/css">
+  body {
+    padding-top: 0px;
+    padding-bottom: 40px;
+  }
+  .sidebar-nav {
+    padding: 9px 0;
+  }
+
+  .table-nonfluid {
+   width: auto !important;
+}
+.table {
+font-size: 12px 
+}
+
+</style>
+
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="bs-docs-section">
+    <div class="col-xs-10">
+
+
+    <h3>References for Click Events</h3>
+    <p> </p>
+      <img src="whisper_actions.png" style="width:90%;">
+      <p> </p>
+      <h4>Other actions not shown in the figure:</h4>
+      
+      <table class="table table-bordered table-striped table-nonfluid">
+       <thead>
+        <tr>
+         <th>Action</td> 
+         <th>Description</td>
+        </tr>
+       </thead>
+       <tbody>
+       <tr>
+          <td>Login</td> 
+          <td>Launch Whisper App from mobile phone table or user login</td>
+        </tr>
+        <!-- <tr>
+          <td>Notification</td> 
+          <td>Notification: someone has just published a new whisper nearby</td>
+        </tr>
+        <tr>
+          <td>View Whisper</td> 
+          <td>Click in and read a whisper</td>
+        </tr>
+        <tr>
+          <td>Popular Feed</td> 
+          <td>Click popular feed list on Whisper main page</td>
+        </tr>
+        <tr>
+          <td>Nearby Feed</td> 
+          <td>Click nearby feed list on Whisper main page</td>
+        </tr>
+        <tr>
+          <td>Latest Feed</td> 
+          <td>Click latest feed list on Whisper main page</td>
+        </tr> -->
+        <!-- <tr>
+          <td>School Feed</td> 
+          <td>Click and view subscribed news feed</td>
+        </tr> -->
+        <!-- <tr>
+          <td>Heart</td> 
+          <td>Heart a whisper or reply</td>
+        </tr>
+        <tr>
+          <td>Flag</td> 
+          <td>Flag a whisper</td>
+        </tr>
+        <tr>
+          <td>Reply</td> 
+          <td>Reply when reading a whisper</td>
+        </tr>
+        <tr>
+          <td>Chat</td> 
+          <td>Start a conversation when reading a whisper</td>
+        </tr> -->
+        <tr>
+          <td>Banned From Chat</td> 
+          <td>Being banned by others during a private chat</td>
+        </tr>
+        <tr>
+          <td>Banned a User In Chat</td> 
+          <td>Banned another user during a private chat</td>
+        </tr>
+        <!-- <tr>
+          <td>Whisper Uploaded</td> 
+          <td>Write and publish a new whisper</td>
+        </tr>
+        <tr>
+          <td>Image Suggest</td> 
+          <td>Whisper suggest a image for user when creating a new whisper or reply</td>
+        </tr>
+        <tr>
+          <td>Image Search</td> 
+          <td>Launch an image search when suggested image is not satisfied</td>
+        </tr> -->
+        <tr>
+          <td>Whisper Deleted by User</td> 
+          <td>Delete his/her own whisper</td>
+        </tr>
+      </tbody>
+      </table>
+
+
+      <h4>Time gaps in the clickstream have been bucketized:</h4>
+
+
+      <table class="table table-bordered table-striped table-nonfluid">
+       <thead>
+        <tr>
+          <th>Time Gap</td> 
+          <th>Range</td>
+        </tr>
+       </thead>
+      <tbody>
+        <tr>
+          <td>1S</td> 
+          <td> &lt; 1 second </td>
+        </tr>
+        <tr>
+          <td>1M</td> 
+          <td>[1 second, 1 minute)</td>
+        </tr>
+        <tr>
+          <td>1H</td> 
+          <td>[1 minute, 1 hour)</td>
+        </tr>
+        <tr>
+          <td>1D</td> 
+          <td>[1 hour, 1 day)</td>
+        </tr>
+        <tr>
+          <td>1D+</td> 
+          <td> &gt; 1 day</td>
+        </tr>
+       </tbody>
+       </table> 
+
+      </div>
+      </div>
+  </div>
+</body>
+<script>
+$('a').click(function(){
+  var username = ($('#username').val());
+  window.open('/index_color.html?json=chi_full_score.json&user='+username);
+});
+
+$('#username').bind("enterKey",function(e){
+  var username = ($('#username').val());
+  window.open('/index_color.html?json=chi_full_score.json&user='+username);
+});
+$('#username').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        $(this).trigger("enterKey");
+    }
+});
+</script>
+
+</html>
+

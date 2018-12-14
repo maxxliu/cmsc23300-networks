@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Clickstream Project</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/whisper.css">
+</head>
+
+<body>
+<nav class="navbar hidden navbar-default navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle hidden" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">Clickstream</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav hidden">
+        <li>
+          <a href="#sec0">About</a>
+        </li>
+        <li>
+          <a href="#sec1">Publications</a>
+        </li>
+        <li>
+          <a href="#sec2">Code</a>
+        </li>
+        <li>
+          <a href="#sec3">Contact Us</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</nav>
+
+<div id="masthead">  
+  <div class="container">
+      <div class="row">
+        <div class="col-md-9 col-lg-offset-1 col-lg-8">
+          <h1>Clickstream Clustering for User Behavior Analysis
+            <p class="lead"><a href='http://sandlab.cs.ucsb.edu/' target=blank>SAND Lab @ UC Santa Barbara</a></p>
+          </h1>
+        </div>
+        <a class="col-md-3  col-lg-2" href="multi_color.html?json=chi_full_dist.json">
+            <div class="well well-lg"> 
+                  <img src="img/demo.jpg" class="img-responsive">
+                  <strong>Demo</strong>
+            </div>
+        </a>
+      </div> 
+  </div><!--/container-->
+</div><!--/masthead-->
+
+<!--main-->
+<div class="container">
+  <div class="row">
+      
+      <!--right-->
+      <div class="col-md-9  col-lg-8 col-lg-offset-1" id="leftCol">
+        
+        <h2 id="sec0">About</h2>
+        <p>
+          Online services are increasingly dependent on user participation. Whether it is online social networks or crowdsourcing services, understanding user behavior is important yet challenging. In this project, we build an unsupervised system to capture dominating user behaviors from clickstream data (traces of users’ click events), and visualize the detected behaviors in an intuitive manner. Our system identifies "clusters" of similar users by partitioning a similarity graph (nodes are users; edges are weighted by clickstream similarity). The partitioning process leverages iterative feature pruning to capture the natural hierarchy within user clusters and produce intuitive features for visualizing and understanding captured user behaviors. 
+        </p>
+
+        <p>
+          This <a href="multi_color.html?json=chi_full_dist.json">demo</a> presents the clustering result on a large-scale clickstream traces from an anonymous social network, Whisper. Our system effectively identifies previously unknown behaviors, e.g., dormant users, hostile chatters. In addition, we have successfully applied clickstream-based behavior model to detect new attacks in real-world online social networks including Renren and LinkedIn. 
+        </p>
+        
+        <hr>
+        
+        <h2 id="sec1">Publications</h2>
+        <p>
+          <ul class="decorate">
+          <li id="pub2">
+            Gang Wang, Xinyi Zhang, Shiliang Tang, Haitao Zheng, Ben Y. Zhao. 
+            <a target='blank' href='http://www.cs.ucsb.edu/~ravenben/publications/pdf/clickstream-chi16.pdf'>Unsupervised Clickstream Clustering for User Behavior Analysis</a>.
+            Proceedings of SIGCHI Conference on Human Factors in Computing Systems <strong>(CHI)</strong>,
+            San Jose, CA, May 2016. 
+            <span class='label label-info'><a target='blank' href='http://www.cs.ucsb.edu/~ravenben/publications/abstracts/clickstream-chi16.html'>Abstract</a></span>
+            <span class='label label-info'><a target='blank' href='http://www.cs.ucsb.edu/~gangw/chi16.mp4'>Video</a></span>
+          </li>
+          <li id="pub1">
+            Gang Wang, Tristan Konolige, Christo Wilson, Xiao Wang, Haitao Zheng, Ben Y. Zhao. 
+            <a target='blank' href='http://www.cs.ucsb.edu/~ravenben/publications/pdf/clickstream-usenixsec13.pdf'>
+            You are How You Click: Clickstream Analysis for Sybil Detection</a>.
+            Proceedings of the 22nd USENIX Security Symposium <strong>(USENIX Security)</strong>, 
+            Washington, DC, August 2013. 
+            <span class='label label-info'><a target='blank' href='http://www.cs.ucsb.edu/~ravenben/publications/abstracts/clickstream-usenixsec13.html'>Abstract</a></span>
+            <span class='label label-info'><a target='blank' href='http://www.cs.ucsb.edu/~gangw/usenix_gang.pptx'>Slides</a></span>
+          </li>
+          </ul>
+        </p>
+
+        <hr>
+        
+        <h2 id="sec2">Code</h2>
+        <p>
+        The project source code is available for <a href='rhc.zip'>download</a>.
+        This zip file contains a set of scripts that perform recursive hierarchical clustering on clickstream data, and generate clusters of user behaviors. </p>
+
+        <p>For details about input/output format, and system configurations, please refer to the <a href='documentation.html'>documentation</a>. The algorithm itself is detailed in our <a href="#pub2" onclick="$('#pub2').animate({opacity:0.7},'fast').animate({opacity:1},'fast').css('font-weight',500)">paper</a>.
+        </p>
+        <p>A quick example is shown as follows. </p>
+        <p>
+        <code>$&gt; python recursiveHierarchicalCustering.py input.txt output/</code>
+        </p>
+        <p>
+          <ul class='decorate'>
+            <li><b>input.txt</b>: input file that contains information about user clickstreams.
+            Each line represents one user, her clickstream patterns:<br/>
+            <code>user_id \t A(1)G(10)</code> <br/>
+            where <code>A</code> and <code>G</code> are action patterns, and <code>1</code> and <code>10</code> represent how many times the respective pattern appears in the user's clickstream.
+            </li>
+            <li><b>output</b>: the directory for temporary files and the final clustering result files. <br/>
+            <code>output/result.json</code> will be the output file for the clustering results.</li>
+          </ul>
+        </p>
+        
+
+        <hr>
+
+        <h2 id="sec3">Contact Us</h2>
+        <p>
+        We are a research team from the Department of Computer Science in UC Santa Barbara. If you have any questions, please don't hesitate to <a target='blank' href='http://sandlab.cs.ucsb.edu/people.html'>contact us</a>.
+        </p>
+
+        </div>
+
+      <!--/right-->
+
+      <!--left-->
+      <div class="col-md-3  col-lg-2">
+        <ul class="nav nav-stacked" id="sidebar decorate">
+          <li><a href="#sec0">About</a></li>
+          <li><a href="#sec1">Publications</a></li>
+          <li><a href="#sec2">Code</a></li>
+          <li><a href="#sec3">Contact Us</a></li>
+        </ul>
+      </div><!--/left-->
+    </div><!--/row-->
+</div><!--/container-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/project.js"></script>
+</body>
+
+

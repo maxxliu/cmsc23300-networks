@@ -1,0 +1,169 @@
+/*
+**	Author: HappyZ
+**	Author URL: http://www.cs.ucsb.edu/~yanzi/
+*/
+
+/* reset */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}ol,ul{list-style:none;margin:0;padding:0}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}a{text-decoration:none}.clear{clear:both}.pos-relative{position:relative}.pos-absolute{position:absolute}.vertical-base{vertical-align:baseline}.vertical-top{vertical-align:top}.underline{padding-bottom:5px;border-bottom:1px solid #eee;margin:0 0 20px}nav.vertical ul li{display:block}nav.horizontal ul li{display:inline-block}img{max-width:100%}
+
+/* general */
+body {
+font-family:"Open Sans",arial,sans-serif;
+font-size:100%;
+background:#FFF;
+color:#333
+}
+
+a {
+-webkit-transition:all .3s ease-out;
+-moz-transition:all .3s ease-out;
+-ms-transition:all .3s ease-out;
+-o-transition:all .3s ease-out;
+transition:all .3s ease-out
+}
+
+.wrap {
+position:relative;
+margin:0 auto;
+width:70%
+}
+
+/* nav */
+.nav {
+margin:10px 0
+}
+
+.nav > ul > li {
+display:inline-block;
+position:relative
+}
+
+.nav > ul > li.active a {
+color:#FFF;
+background-color:#08C
+}
+
+.nav > ul > li > a {
+color:#08C;
+display:block;
+font-size:1em;
+padding:10px;
+}
+
+.nav > ul > li > a:hover {
+background-color:#08C;
+color:#FFF
+}
+
+/* header */
+.header {
+padding:15px 0;
+border-bottom: 1px solid #CCC;
+}
+
+.header h1{
+font-size:2.1em
+}
+
+.header p{
+margin-top:10px;
+font-size:1.4em
+}
+
+/* content */
+.main {
+margin-top:2%
+}
+
+.main a {
+color:#08C;
+}
+
+.main a:hover {
+color:#333;
+}
+
+.main h2 {
+margin-top:20px;
+font-weight:700;
+line-height:1.4em;
+font-size:1.4em;
+color:#333
+}
+
+.main p {
+line-height:1.5em;
+padding:5px 0;
+}
+
+.main .pubs{
+padding:10px 0 10px 20px;
+list-style-type:circle
+}
+
+.main .img{
+width:70%;
+text-align:center;
+margin:5px auto;
+border:1px solid transparent;
+}
+
+.main .img:hover{
+border:1px solid #CCC;
+}
+
+.main img{
+width:100%;
+}
+
+.main .pubTitle,.main .img span {
+font-weight:700;
+}
+
+.main .pubLoc {
+font-style:italic
+}
+
+/* copyright */
+.copyright {
+font-size:.8725em;
+margin:20px 0 10px;
+padding-top:5px;
+color:#333;
+line-height:1.8em;
+border-top:1px solid #CCC;
+}
+
+.clear {
+clear:both;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 1280px) {
+	.wrap{
+		width:95%;
+	}
+	body{
+		font-size: 90%;
+	}
+}
+@media only screen and (max-width: 800px) {
+	body{
+		font-size: 80%;
+	}
+	.main .img{
+		width:100%;
+	}
+	
+}
+@media only screen and (max-width: 600px) {
+	.main h2 {
+		margin-top:10px;
+	}
+}
+@media only screen and (max-width: 400px) {
+	
+}
+@media print{
+	
+}
