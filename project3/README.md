@@ -41,7 +41,7 @@ python mcrawl2.py -n 5 -h eychtipi.cs.uchicago.edu -p 80 -f tmp/
 
 Using the same cookie for all threads
 ```
-python mcrawl2.py -n 5 -h eychtipi.cs.uchicago.edu -p 80 -f tmp/
+python mcrawl1.py -n 5 -h eychtipi.cs.uchicago.edu -p 80 -f tmp/
 ```
 
 ## Implementation Details
